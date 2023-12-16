@@ -2,6 +2,8 @@ package com.example.to_doapp.ui.home
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.to_doapp.data.Repository
@@ -20,12 +22,19 @@ class HomeViewModel @Inject constructor(
 ): AndroidViewModel(application){
 
     val toDoList = repository.localDataSource.getAllToDo().asLiveData()
+    var searchToDoList: LiveData<List<ToDoModel>> = MutableLiveData()
+    val searchQuery = MutableLiveData("")
 
     fun updateToDo(toDoModel: ToDoModel) {
         val updatedToDoModel = toDoModel.copy(isChecked =  toDoModel.isChecked?.not())
         viewModelScope.launch {
             repository.localDataSource.updateToDo(updatedToDoModel)
         }
+    }
+
+    fun searchToDo(searchQuery: String) {
+        searchToDoList = repository.localDataSource.searchToDo("%$searchQuery%").asLiveData()
+        this.searchQuery.value = searchQuery
     }
 
 

@@ -25,6 +25,8 @@
             app:toDoList="@{ViewModel.toDoList}"
             app:setOnClickListener="@{ToDoClickListener}"
             android:layout_height="0dp"
+            app:searchQuery="@{ViewModel.searchQuery}"
+            app:searchToDoList="@{ViewModel.searchToDoList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

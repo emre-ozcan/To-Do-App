@@ -20,26 +20,45 @@ import com.example.to_doapp.ui.home.ToDoClickListener
 fun setItemToDoPriorityTint(imageView: ImageView, priority: Priority?) {
     val context = imageView.context
 
-    val color = when(priority) {
+    val color = when (priority) {
         Priority.HIGH -> R.color.priority_high
         Priority.MEDIUM -> R.color.md_theme_light_secondary
         else -> R.color.seed
     }
 
-    ImageViewCompat.setImageTintList(imageView, ColorStateList.valueOf(ContextCompat.getColor(context, color)))
+    ImageViewCompat.setImageTintList(
+        imageView,
+        ColorStateList.valueOf(ContextCompat.getColor(context, color))
+    )
 }
 
-@BindingAdapter("toDoList", "setOnClickListener")
+@BindingAdapter("toDoList", "setOnClickListener", "searchQuery", "searchToDoList")
 fun setHomeRecyclerViewAdapter(
     recyclerView: RecyclerView,
     list: List<ToDoModel>?,
-    toDoClickListener: ToDoClickListener
+    toDoClickListener: ToDoClickListener,
+    searchQuery: String,
+    searchList: List<ToDoModel>?
 ) {
     recyclerView.apply {
         if (this.adapter == null) {
-            adapter = HomeListAdapter(toDoClickListener).apply { submitList(list) }
+            adapter = HomeListAdapter(toDoClickListener).apply {
+                submitList(
+                    if (searchQuery.isEmpty()) {
+                        list
+                    } else {
+                        searchList
+                    }
+                )
+            }
         } else {
-            (this.adapter as HomeListAdapter).submitList(list)
+            (this.adapter as HomeListAdapter).submitList(
+                if (searchQuery.isEmpty()) {
+                    list
+                } else {
+                    searchList
+                }
+            )
         }
     }
 }
