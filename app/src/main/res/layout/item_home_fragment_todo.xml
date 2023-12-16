@@ -64,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
+                android:checked="@{ToDoModel.isChecked()}"
                 android:onClick="@{() -> ToDoClickListener.onToDoChecked(ToDoModel)}"
                 app:layout_constraintBottom_toBottomOf="@+id/item_home_fragment_todo_description"
                 app:layout_constraintEnd_toEndOf="parent"

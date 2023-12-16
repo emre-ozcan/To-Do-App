@@ -8,5 +8,18 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.to_doapp.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_newAndEditFragment"
+            app:destination="@id/newAndEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newAndEditFragment"
+        android:name="com.example.to_doapp.ui.newAndEdit.NewAndEditFragment"
+        tools:layout="@layout/fragment_new_and_edit">
+        <argument
+            android:name="toDoId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
 </navigation>

@@ -16,6 +16,7 @@ class HomeListAdapter(private val toDoClickListener: ToDoClickListener) : ListAd
         RecyclerView.ViewHolder(binding.root) {
         fun bind(toDoClickListener: ToDoClickListener, toDoModel: ToDoModel) {
             binding.toDoModel = toDoModel
+            binding.toDoClickListener = toDoClickListener
 
             binding.executePendingBindings()
         }
