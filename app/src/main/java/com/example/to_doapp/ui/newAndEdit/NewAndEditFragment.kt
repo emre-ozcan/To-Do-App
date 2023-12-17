@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.to_doapp.databinding.FragmentNewAndEditBinding
 import com.example.to_doapp.model.Priority
+import com.example.to_doapp.utilities.controlIsFieldsSuitableForSave
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,6 +93,11 @@ class NewAndEditFragment : Fragment() {
             0 -> Priority.HIGH
             1 -> Priority.MEDIUM
             else -> Priority.LOW
+        }
+
+        if (controlIsFieldsSuitableForSave(title, description, priority, binding.fragmentNewAndEditCheckbox.isChecked).not()) {
+            Toast.makeText(requireContext(), "There is an empty field", Toast.LENGTH_SHORT).show()
+            return
         }
 
         if (args.toDoId == -1) {
